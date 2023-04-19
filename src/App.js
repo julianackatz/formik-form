@@ -3,19 +3,25 @@ import { useFormik } from "formik";
 // TODO: import useFormik from formik library
 
 function App() {
-  // TODO: add a const called formik assigned to useFormik()
   const formik = useFormik({
     initialValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
     onSubmit: (values) => {
-      alert("Login Successful");
+      console.log('form:', values);
+      alert('Login Successful');
     },
     validate: (values) => {
       let errors = {};
-      if (!values.email) errors.email = "field required";
-      if (!values.password) errors.password = "field required";
+      if (!values.email) {
+        errors.email = 'Field required';
+      } else if (
+        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+      ) {
+        errors.email = 'Username should be an email';
+      }
+      if (!values.password) errors.password = 'Field required';
       return errors;
     },
   });
